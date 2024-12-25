@@ -13,7 +13,7 @@
         <app-account-info
           *ngSwitchCase="0"
           [accountInfo]="userProfile.accountInfo"
-          (accountInfoChange)="userProfile.accountInfo = $event"
+          (accountInfoChange)="onAccountInfoChange($event)"
           (stepValidity)="onStepValidityChange($event)"
         ></app-account-info>
 
@@ -21,7 +21,7 @@
         <app-personal-details
           *ngSwitchCase="1"
           [personalDetails]="userProfile.personalDetails"
-          (personalDetailsChange)="userProfile.personalDetails"
+          (personalDetailsChange)="onPersonalDetailsChange($event)"
           (stepValidity)="onStepValidityChange($event)"
         ></app-personal-details>
 
@@ -30,13 +30,14 @@
         <!-- Step 3: Profile Picture -->
         <app-profile-picture
           *ngSwitchCase="2"
-        (profilePictureChange)="userProfile.profilePicture"
+        (profilePictureChange)="onProfilePictureChange($event)"
         (stepValidity)="onStepValidityChange($event)"
           ></app-profile-picture>
 
         <!-- Step 4: Preview and Confirm -->
         <app-preview
           *ngSwitchCase="3"
+          [imageURL]="userProfile.profilePicture.urlDisplay"
           [userProfile]="userProfile"
         ></app-preview>
       </ng-container>

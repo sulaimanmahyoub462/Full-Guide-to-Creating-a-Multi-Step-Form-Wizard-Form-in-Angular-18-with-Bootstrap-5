@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, input, Input} from '@angular/core';
 import { UserProfile } from '../model';
 
 @Component({
@@ -9,5 +9,6 @@ import { UserProfile } from '../model';
   styleUrl: './app-preview.component.scss'
 })
 export class AppPreviewComponent {
+  imageURL=input.required<string>();
   @Input() userProfile: UserProfile | any;
 }

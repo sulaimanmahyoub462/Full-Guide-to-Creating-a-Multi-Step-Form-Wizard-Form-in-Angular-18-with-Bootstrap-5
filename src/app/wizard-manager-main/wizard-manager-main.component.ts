@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { UserProfile, WizardStep } from '../childs/model';
+import {Component, input} from '@angular/core';
+import {Aviator, UserProfile, WizardStep} from '../childs/model';
 import {NgFor, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import { AppAccountInfoComponent } from "../childs/app-account-info/app-account-info.component";
  import { AppPreviewComponent } from "../childs/app-preview/app-preview.component";
@@ -16,6 +16,7 @@ import {AppProfilePictureComponent} from "../childs/app-profile-picture/app-prof
 export class WizardManagerMainComponent {
 
 
+
   steps: WizardStep[] = [
     { id: 'accountInfo', label: 'Account Information', isValid: false },
     { id: 'personalDetails', label: 'Personal Details', isValid: false },
@@ -23,7 +24,6 @@ export class WizardManagerMainComponent {
     { id: 'preview', label: 'Preview & Confirm', isValid: true },
   ];
   currentStepIndex = 0;
-
 
 
   userProfile: UserProfile = {
@@ -53,6 +53,22 @@ export class WizardManagerMainComponent {
 
   onStepValidityChange(isValid: boolean): void {
     this.steps[this.currentStepIndex].isValid = isValid;
+  }
+
+  // Update account information
+  onAccountInfoChange(accountInfo: { username: string; email: string }): void {
+    this.userProfile.accountInfo = accountInfo;
+  }
+
+  // Update personal details
+  onPersonalDetailsChange(personalDetails: { firstName: string; lastName: string; dateOfBirth: string }): void {
+    this.userProfile.personalDetails = personalDetails;
+  }
+
+  // Update profile picture
+  onProfilePictureChange(profilePicture: Aviator): void {
+    this.userProfile.profilePicture.urlDisplay = profilePicture.urlDisplay;
+    this.userProfile.profilePicture.file = profilePicture.file;
   }
 
   onSubmit(): void {
