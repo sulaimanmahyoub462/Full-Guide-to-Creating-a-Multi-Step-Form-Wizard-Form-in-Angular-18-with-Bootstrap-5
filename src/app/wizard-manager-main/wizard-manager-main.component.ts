@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserProfile, WizardStep } from '../childs/model';
-import { NgFor, NgIf, NgSwitch } from '@angular/common';
+import {NgFor, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import { AppAccountInfoComponent } from "../childs/app-account-info/app-account-info.component";
  import { AppPreviewComponent } from "../childs/app-preview/app-preview.component";
 import { AppPersonalDetailsComponent } from "../childs/app-personal-details/app-personal-details.component";
@@ -9,7 +9,7 @@ import {AppProfilePictureComponent} from "../childs/app-profile-picture/app-prof
 @Component({
   selector: 'wizard-manager',
   standalone: true,
-  imports: [NgFor, NgIf, NgSwitch, AppAccountInfoComponent,AppPreviewComponent, AppPersonalDetailsComponent, AppProfilePictureComponent],
+  imports: [NgFor, NgIf, NgSwitch, AppAccountInfoComponent, AppPreviewComponent, AppPersonalDetailsComponent, AppProfilePictureComponent, NgSwitchCase],
   templateUrl: './wizard-manager-main.component.html',
   styleUrl: './wizard-manager-main.component.scss'
 })
