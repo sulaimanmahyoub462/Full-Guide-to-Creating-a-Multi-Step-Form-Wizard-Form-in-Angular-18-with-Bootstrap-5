@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
-import { WizardStep } from '../childs/model';
+import { UserProfile, WizardStep } from '../childs/model';
+import { NgFor, NgIf, NgSwitch } from '@angular/common';
+import { AppAccountInfoComponent } from "../childs/app-account-info/app-account-info.component";
+ import { AppPreviewComponent } from "../childs/app-preview/app-preview.component";
+import { AppPersonalDetailsComponent } from "../childs/app-personal-details/app-personal-details.component";
+import {AppProfilePictureComponent} from "../childs/app-profile-picture/app-profile-picture.component";
 
 @Component({
-  selector: 'app-wizard-manager-main',
+  selector: 'wizard-manager',
   standalone: true,
-  imports: [],
+  imports: [NgFor, NgIf, NgSwitch, AppAccountInfoComponent,AppPreviewComponent, AppPersonalDetailsComponent, AppProfilePictureComponent],
   templateUrl: './wizard-manager-main.component.html',
   styleUrl: './wizard-manager-main.component.scss'
 })
-export class WizardManagerMainComponent { 
+export class WizardManagerMainComponent {
+
 
   steps: WizardStep[] = [
     { id: 'accountInfo', label: 'Account Information', isValid: false },
@@ -18,13 +24,39 @@ export class WizardManagerMainComponent {
   ];
   currentStepIndex = 0;
 
-  nextStep() {
-    if (this.currentStepIndex < this.steps.length - 1) this.currentStepIndex++;
-  }
-  previousStep() {
-    if (this.currentStepIndex > 0) this.currentStepIndex--;
-  }
-  
-  
 
+
+  userProfile: UserProfile = {
+    accountInfo: { username: '', email: '' },
+    personalDetails: {firstName: '',lastName: '', dateOfBirth: ''},
+    profilePicture: { file: new File( [],''), urlDisplay: '' },
+  };
+  get isLastStep(): boolean {
+    return this.currentStepIndex === this.steps.length - 1;
+  }
+
+  get isFirstStep(): boolean {
+    return this.currentStepIndex === 0;
+  }
+
+  nextStep(): void {
+    if (this.steps[this.currentStepIndex].isValid) {
+      this.currentStepIndex++;
+    }
+  }
+
+  previousStep(): void {
+    if (this.currentStepIndex > 0) {
+      this.currentStepIndex--;
+    }
+  }
+
+  onStepValidityChange(isValid: boolean): void {
+    this.steps[this.currentStepIndex].isValid = isValid;
+  }
+
+  onSubmit(): void {
+    console.log('User Profile Submitted:', this.userProfile);
+    alert('Profile submitted successfully!');
+  }
 }
